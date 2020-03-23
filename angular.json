@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1, 
+  "version": 1,
   "newProjectRoot": "projects",
   "projects": {
     "topology": {
@@ -12,7 +12,7 @@
       },
       "root": "",
       "sourceRoot": "src",
-      "prefix": "app",
+      "prefix": "aa",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "topology"
+    }
+  },
+  "defaultProject": "topology",
+  "cli": {
+    "analytics": "cf92c049-ee5d-4293-aeb3-b52d8fb6106f"
+  }
 }
