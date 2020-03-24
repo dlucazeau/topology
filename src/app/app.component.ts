@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import APP_CONFIG from './app.config';
-import { Node, Link } from './d3/models';
+import { Node, Link, NodeEntity, NodeAppli, NodeRole } from './d3/models';
 
 @Component({
     selector: 'aa-root',
@@ -18,26 +18,56 @@ export class AppComponent
 
     constructor()
     {
-        const N = APP_CONFIG.N,
-            getIndex = (n: number) => n - 1;
+        this.build();
+        // const N = APP_CONFIG.N,
+        //     getIndex = (n: number) => n - 1;
 
-        /** constructing the nodes array */
-        for (let i = 1; i <= N; i++)
-        {
-            this.nodes.push(new Node(i.toString()));
-        }
+        // /** constructing the nodes array */
+        // for (let i = 1; i <= N; i++)
+        // {
+        //     this.nodes.push(new Node(i.toString()));
+        // }
 
-        for (let i = 1; i <= N; i++)
+        // for (let i = 1; i <= N; i++)
+        // {
+        //     for (let m = 2; i * m <= N; m++)
+        //     {
+        //         /** increasing connections toll on connecting nodes */
+        //         this.nodes[getIndex(i)].linkCount++;
+        //         this.nodes[getIndex(i * m)].linkCount++;
+
+        //         /** connecting the nodes before starting the simulation */
+        //         this.links.push(new Link(this.nodes[getIndex(i)], this.nodes[getIndex(i * m)]));
+        //     }
+        // }
+    }
+
+    build ()
+    {
+        const applis: string[] = ['BCKP', 'ITSM', 'OBJS'];
+        const roles: string[] = ['reader', 'user', 'admin', 'manager'];
+        // Entity
+        const mainNode = new NodeEntity('AA');
+        this.nodes.push(mainNode);
+
+        // Applications
+        applis.forEach((app: string) =>
         {
-            for (let m = 2; i * m <= N; m++)
+            const appNode = new NodeAppli(app);
+
+            this.nodes.push(appNode);
+            this.links.push(new Link(mainNode, appNode));
+
+            roles.forEach((role: string) =>
             {
-                /** increasing connections toll on connecting nodes */
-                this.nodes[getIndex(i)].linkCount++;
-                this.nodes[getIndex(i * m)].linkCount++;
+                const roleNode = new NodeRole(role);
 
-                /** connecting the nodes before starting the simulation */
-                this.links.push(new Link(this.nodes[getIndex(i)], this.nodes[getIndex(i * m)]));
-            }
-        }
+                this.nodes.push(roleNode);
+                this.links.push(new Link(appNode, roleNode));
+            });
+        });
+
+        // Roles
+
     }
 }

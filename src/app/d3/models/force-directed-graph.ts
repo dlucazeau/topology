@@ -55,6 +55,7 @@ export class ForceDirectedGraph
 
             // Creating the force simulation and defining the charges
             this.simulation = d3.forceSimulation()
+                .
                 .force('charge',
                     d3.forceManyBody()
                         .strength(FORCES.CHARGE)

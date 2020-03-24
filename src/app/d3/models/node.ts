@@ -1,6 +1,4 @@
 import * as d3 from 'd3';
-
-import APP_CONFIG from '../../app.config';
 export class Node implements d3.SimulationNodeDatum
 {
     // Optional - defining optional implementation properties - required for relevant typing assistance
@@ -11,34 +9,72 @@ export class Node implements d3.SimulationNodeDatum
     vy?: number;
     fx?: number | null;
     fy?: number | null;
-
     id: string;
     linkCount: number = 0;
+    protected _r: number;
+    protected _fontSize: number;
 
     constructor(id: string)
     {
         this.id = id;
     }
 
-    normal = () =>
-    {
-        return Math.sqrt(this.linkCount / APP_CONFIG.N);
-    }
-
     get r ()
     {
-        return 50 * this.normal() + 10;
+        return this._r;
     }
 
     get fontSize ()
     {
-        return (30 * this.normal() + 10) + 'px';
+        return this._fontSize;
     }
 
     get color ()
     {
-        const index = Math.floor(APP_CONFIG.SPECTRUM.length * this.normal());
+        return 'rgb(176,212,243)';
+    }
+}
 
-        return APP_CONFIG.SPECTRUM[index];
+export class NodeEntity extends Node
+{
+    constructor(id: string)
+    {
+        super(id);
+
+        this._r = 75;
+        this._fontSize = 16;
+    }
+}
+
+export class NodeAppli extends Node
+{
+    constructor(id: string)
+    {
+        super(id);
+
+        this._r = 60;
+        this._fontSize = 14;
+    }
+}
+
+export class NodeRole extends Node
+{
+    constructor(id: string)
+    {
+        super(id);
+
+        this._r = 45;
+        this._fontSize = 12;
+    }
+}
+
+export class NodeUser extends Node
+{
+    constructor(id: string)
+    {
+        super(id);
+
+        this._r = 30;
+        this._fontSize = 10;
     }
 }

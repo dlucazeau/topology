@@ -1,5 +1,4 @@
-// path : d3/models/index.ts
+export { Node, NodeEntity, NodeAppli, NodeRole, NodeUser} from './node';
 
-export * from './node';
 export * from './link';
 export * from './force-directed-graph';
