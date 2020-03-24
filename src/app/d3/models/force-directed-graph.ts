@@ -1,13 +1,15 @@
 import { EventEmitter } from '@angular/core';
-import { Link } from './link';
-import { Node } from './node';
+
 import * as d3 from 'd3';
 
+import { Link } from './link';
+import { Node } from './node';
+
 const FORCES = {
-    LINKS: 1 / 50,
-    COLLISION: 1,
-    CHARGE: -1
-}
+    LINKS: 0.05,
+    COLLISION: 10,
+    CHARGE: -0.2
+};
 
 export class ForceDirectedGraph
 {
@@ -24,23 +26,6 @@ export class ForceDirectedGraph
         this.initSimulation(options);
     }
 
-    // connectNodes (source:, target)
-    // {
-    //     let link;
-
-    //     if (!this.nodes[source] || !this.nodes[target])
-    //     {
-    //         throw new Error('One of the nodes does not exist');
-    //     }
-
-    //     link = new Link(source, target);
-    //     this.simulation.stop();
-    //     this.links.push(link);
-    //     this.simulation.alphaTarget(0.3).restart();
-
-    //     this.initLinks();
-    // }
-
     initSimulation (options: { width: number, height: number })
     {
         if (!options || !options.width || !options.height)
@@ -55,7 +40,7 @@ export class ForceDirectedGraph
 
             // Creating the force simulation and defining the charges
             this.simulation = d3.forceSimulation()
-                .
+
                 .force('charge',
                     d3.forceManyBody()
                         .strength(FORCES.CHARGE)
@@ -63,7 +48,8 @@ export class ForceDirectedGraph
                 .force('collide',
                     d3.forceCollide()
                         .strength(FORCES.COLLISION)
-                        .radius((d: Node) => d.r + 5).iterations(2)
+                        .radius((d: Node) => d.r + 5)
+                        .iterations(2)
                 );
 
             // Connecting the d3 ticker to an angular event emitter

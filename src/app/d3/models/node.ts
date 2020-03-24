@@ -41,7 +41,7 @@ export class NodeEntity extends Node
     {
         super(id);
 
-        this._r = 75;
+        this._r = 37.5;
         this._fontSize = 16;
     }
 }
@@ -52,7 +52,7 @@ export class NodeAppli extends Node
     {
         super(id);
 
-        this._r = 60;
+        this._r = 30;
         this._fontSize = 14;
     }
 }
@@ -63,7 +63,7 @@ export class NodeRole extends Node
     {
         super(id);
 
-        this._r = 45;
+        this._r = 22.5;
         this._fontSize = 12;
     }
 }
@@ -74,7 +74,7 @@ export class NodeUser extends Node
     {
         super(id);
 
-        this._r = 30;
+        this._r = 15;
         this._fontSize = 10;
     }
 }

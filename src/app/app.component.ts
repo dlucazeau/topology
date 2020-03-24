@@ -46,28 +46,32 @@ export class AppComponent
     {
         const applis: string[] = ['BCKP', 'ITSM', 'OBJS'];
         const roles: string[] = ['reader', 'user', 'admin', 'manager'];
+
         // Entity
         const mainNode = new NodeEntity('AA');
         this.nodes.push(mainNode);
 
         // Applications
+        const appliNodes: Map<string, Node> = new Map<string, Node>();
         applis.forEach((app: string) =>
         {
             const appNode = new NodeAppli(app);
 
             this.nodes.push(appNode);
             this.links.push(new Link(mainNode, appNode));
+            appliNodes.set(app, appNode);
+        });
 
+        // Roles
+        appliNodes.forEach((node: Node) =>
+        {
             roles.forEach((role: string) =>
             {
                 const roleNode = new NodeRole(role);
 
                 this.nodes.push(roleNode);
-                this.links.push(new Link(appNode, roleNode));
+                this.links.push(new Link(node, roleNode));
             });
         });
-
-        // Roles
-
     }
 }
